@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ChatBotApp.css";
 
 const ChatBotApp = ({
@@ -11,6 +11,9 @@ const ChatBotApp = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState(chats[0]?.messages || []);
+  const [isTyping, setIsTyping] = useState(false);
+  const chatEndRef = useRef(null);
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const activeChatObj = chats.find((chat) => chat.id === activeChat);
@@ -21,8 +24,8 @@ const ChatBotApp = ({
     setInputValue(e.target.value);
   };
 
-  const sendMessage = () => {
-    if (inputValue.trim === "") return;
+  const sendMessage = async () => {
+    if (inputValue.trim() === "") return;
 
     const newMessage = {
       type: "prompt",
@@ -45,6 +48,45 @@ const ChatBotApp = ({
         return chat;
       });
       setChats(updatedChats);
+      setIsTyping(true);
+
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: inputValue }],
+            max_tokens: 200,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      const chatResponse = data.choices[0].message.content.trim();
+
+      const newResponse = {
+        type: "response",
+        text: chatResponse,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+
+      const updatedMessagesWithResponse = [...updatedMessages, newResponse];
+      setMessages(updatedMessagesWithResponse);
+      setIsTyping(false);
+
+      const updatedChatsWithResponse = chats.map((chat) => {
+        if (chat.id === activeChat) {
+          return { ...chat, messages: updatedMessagesWithResponse };
+        }
+        return chat;
+      });
+
+      setChats(updatedChatsWithResponse);
     }
   };
 
@@ -68,6 +110,10 @@ const ChatBotApp = ({
       setActiveChat(newActiveChat);
     }
   };
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className="chat-app">
@@ -114,7 +160,8 @@ const ChatBotApp = ({
               <span>{msg.timestamp}</span>
             </div>
           ))}
-          <div className="typing">Typing...</div>
+          {isTyping && <div className="typing">Typing...</div>}
+          <div ref={chatEndRef}></div>
         </div>
         <form className="msg-form" onSubmit={(e) => e.preventDefault()}>
           <i className="fa-solid fa-face-smile emoji"></i>
