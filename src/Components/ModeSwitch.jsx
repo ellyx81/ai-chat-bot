@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./ModeSwitch.css";
 
 const ModeSwitch = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const toggleMode = () => {
-    const newMode = mode === "dark" ? "light" : "dark";
+    const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
 
     document.querySelector(".container")?.setAttribute("data-mode", newMode);
@@ -13,7 +13,7 @@ const ModeSwitch = () => {
 
   return (
     <div className="mode-switch" onClick={toggleMode}>
-      <i className={`icon bx ${mode === "dark" ? "bxs-moon" : "bxs-sun"}`}></i>
+      <i className={`icon bx ${mode === "light" ? "bxs-sun" : "bxs-moon"}`}></i>
     </div>
   );
 };

@@ -12,12 +12,12 @@ html {
 }
 
 :root {
-  --text: #ffffff;
-  --text-gray: #ddd;
-  --text-gray-2: #7b8ebc;
-  --background: #131927;
-  --background2: #0d111a;
-  --background3: #161c2c;
+  --text: #574b4b;
+  --text-gray: #8d8d8d;
+  --text-gray-2: #7a5b86;
+  --background: #ffffff;
+  --background2: #feefff;
+  --background3: #ffffff;
 }
 
 .container {
@@ -28,13 +28,13 @@ html {
   background-color: var(--background);
 }
 
-.container[data-mode="light"] {
-  --text: #574b4b;
-  --text-gray: #8d8d8d;
-  --text-gray-2: #7a5b86;
-  --background: #ffffff;
-  --background2: #feefff;
-  --background3: #ffffff;
+.container[data-mode="dark"] {
+  --text: #ffffff;
+  --text-gray: #ddd;
+  --text-gray-2: #7b8ebc;
+  --background: #131927;
+  --background2: #0d111a;
+  --background3: #161c2c;
 }
 
 @media (max-width: 500px) {

@@ -55,7 +55,7 @@ const App = () => {
   };
 
   return (
-    <div className="container" data-mode="dark">
+    <div className="container" data-mode="light">
       {isChatting ? (
         <ChatBotApp
           onGoBack={handleGoBack}

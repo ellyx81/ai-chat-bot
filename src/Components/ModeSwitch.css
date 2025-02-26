@@ -31,10 +31,10 @@
   left: 0rem;
 }
 
-.bxs-sun {
+.bxs-moon {
   left: 2.5rem;
 }
 
-.chat-app ~ .mode-switch .icon.bxs-sun {
+.chat-app ~ .mode-switch .icon.bxs-moon {
   left: 1.5rem;
 }
