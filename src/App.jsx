@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChatBotStart from "./Components/ChatBotStart";
 import ChatBotApp from "./Components/ChatBotApp";
+import ModeSwitch from "./Components/ModeSwitch";
 import { v4 as uuidv4 } from "uuid";
 
 const App = () => {
@@ -54,7 +55,7 @@ const App = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" data-mode="dark">
       {isChatting ? (
         <ChatBotApp
           onGoBack={handleGoBack}
@@ -67,6 +68,7 @@ const App = () => {
       ) : (
         <ChatBotStart onStartChat={handleStartChat} />
       )}
+      <ModeSwitch />
     </div>
   );
 };
