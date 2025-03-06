@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import "./ChatBotApp.css";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
+import logo from "../assets/Logo.svg";
+import avatar from "../assets/Avatar.svg";
 
 const ChatBotApp = ({
   onGoBack,
@@ -146,13 +148,10 @@ const ChatBotApp = ({
           <h2>Chat List</h2>
           <div className="chat-list-header-icons">
             <i
-              className="bx bx-edit-alt new-chat"
+              className="bx bxs-edit-alt new-chat"
               onClick={() => onNewChat()}
             ></i>
-            <i
-              className="bx bx-x-circle"
-              onClick={() => setShowChatList(false)}
-            ></i>
+            <i className="bx bx-x" onClick={() => setShowChatList(false)}></i>
           </div>
         </div>
         {chats.map((chat) => (
@@ -166,7 +165,7 @@ const ChatBotApp = ({
             <h4>{chat.displayId}</h4>
 
             <i
-              className="bx bx-x-circle"
+              className="bx bx-x"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDeleteChat(chat.id);
@@ -179,7 +178,7 @@ const ChatBotApp = ({
         <div className="chat-title">
           <h3>Chat with AI</h3>
           <i className="bx bx-menu" onClick={() => setShowChatList(true)}></i>
-          <i className="bx bx-arrow-back arrow" onClick={onGoBack}></i>
+          <i className="bx bxs-arrow-to-right arrow" onClick={onGoBack}></i>
         </div>
         <div className="chat">
           {messages.map((msg, index) => (
@@ -187,8 +186,13 @@ const ChatBotApp = ({
               key={index}
               className={msg.type === "prompt" ? "prompt" : "response"}
             >
-              {msg.text}
-              <span>{msg.timestamp}</span>
+              <div className="avatar">
+                <img src={msg.type === "prompt" ? avatar : logo} />
+              </div>
+              <div className="dialogue">
+                {msg.text}
+                <span>{msg.timestamp}</span>
+              </div>
             </div>
           ))}
           {isTyping && <div className="typing">Typing...</div>}
