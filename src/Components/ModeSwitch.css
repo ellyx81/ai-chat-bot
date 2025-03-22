@@ -1,41 +1,38 @@
 .mode-switch {
   position: absolute;
-  right: 0;
+  right: 2rem;
   top: 4rem;
-  width: 6rem;
+  width: 4rem;
   height: 4rem;
-  background: var(--primary);
-  border-radius: 1rem 0 0 1rem;
+  border: 2px solid var(--text-heading);
   cursor: pointer;
 }
 
 .chat-app ~ .mode-switch {
-  top: 4.4rem;
-  right: 7.3rem;
-  width: 3.2rem;
-  height: 1.5rem;
-  border-radius: 1rem;
+  top: 4.2rem;
+  right: 7.5rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
 }
 
 .icon {
   position: absolute;
-  left: 0.8rem;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 2.3rem;
-  color: #ffcc00;
+  color: var(--text-heading);
   transition: 0.2s ease;
 }
 
 .chat-app ~ .mode-switch .icon {
-  top: 40%;
-  left: -0.2rem;
+  font-size: 2rem;
 }
 
-.bxs-moon {
-  left: 2.5rem;
-}
-
-.chat-app ~ .mode-switch .icon.bxs-moon {
-  left: 1.2rem;
+@media (max-width: 900px) {
+  .chat-app ~ .mode-switch {
+    top: 2.2rem;
+    right: 5.5rem;
+  }
 }
