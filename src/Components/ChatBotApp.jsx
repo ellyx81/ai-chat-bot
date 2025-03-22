@@ -80,7 +80,7 @@ const ChatBotApp = ({
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
             messages: [{ role: "user", content: inputValue }],
-            max_tokens: 200,
+            max_tokens: 500,
           }),
         }
       );
@@ -190,7 +190,12 @@ const ChatBotApp = ({
                 <img src={msg.type === "prompt" ? avatar : logo} />
               </div>
               <div className="dialogue">
-                {msg.text}
+                {msg.text.split("\n").map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
                 <span>{msg.timestamp}</span>
               </div>
             </div>
